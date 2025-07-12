@@ -1,69 +1,64 @@
 import 'package:flutter/material.dart';
 
 class ButtonCustom extends StatefulWidget {
-
-  final  texto;
+  final String texto;
   final VoidCallback onPressed;
   final int? Size;
   final Color? corBack, corText;
 
   const ButtonCustom({
-  super.key, 
-  required this.texto, 
-  required this.onPressed,
-  this.Size,
-  this.corBack,
-  this.corText
+    super.key,
+    required this.texto,
+    required this.onPressed,
+    this.Size,
+    this.corBack,
+    this.corText,
   });
 
   @override
   State<ButtonCustom> createState() => _ButtonCustomState();
 }
 
-class _ButtonCustomState extends State<ButtonCustom> {
-
+class _ButtonCustomState extends State<ButtonCustom>
+    with SingleTickerProviderStateMixin {
   double _scale = 1.0;
 
-  void _onTapDown(TapDownDetails details) {
+  void _animateDown() {
     setState(() {
-      _scale = 0.5;
+      _scale = 0.7;
     });
   }
 
-  void _onTapUp(TapUpDetails details){
-    setState(() {
-      _scale = 1.0;
-    });
-    widget.onPressed();
-  }
-
-  void _onTapCancel(){
+  void _animateUp() {
     setState(() {
       _scale = 1.0;
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    return  GestureDetector(
-
-      onTapDown: _onTapDown,
-      onTapUp: _onTapUp,
-      onTapCancel: _onTapCancel,
+    return Listener(
+      onPointerDown: (_) => _animateDown(),
+      onPointerUp: (_) => _animateUp(),
+      onPointerCancel: (_) => _animateUp(),
       child: AnimatedScale(
         scale: _scale,
-        duration: Duration(milliseconds: 100),
-        child:Container(
+        duration: const Duration(milliseconds: 80),
+        child: Container(
           margin: const EdgeInsets.all(5),
           child: ElevatedButton(
-            onPressed: widget.onPressed,
+            onPressed: () {
+              _animateUp(); // Garante que volte ao normal ao clicar
+              widget.onPressed();
+            },
             style: ElevatedButton.styleFrom(
-              
-              backgroundColor: widget.corBack ?? const Color.fromARGB(255, 56, 42, 42),       // Cor de fundo
-              foregroundColor: widget.corText ?? Colors.white,            // Cor do texto
-              elevation: 8,                              // Sombra
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 24),
+              backgroundColor:
+                  widget.corBack ?? const Color.fromARGB(255, 56, 42, 42),
+              foregroundColor: widget.corText ?? Colors.white,
+              elevation: 8,
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 24),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100), // Cantos arredondados
+                borderRadius: BorderRadius.circular(100),
               ),
             ),
             child: Text(
@@ -71,9 +66,8 @@ class _ButtonCustomState extends State<ButtonCustom> {
               style: TextStyle(fontSize: widget.Size?.toDouble() ?? 18.0),
             ),
           ),
-        ))
-
-
+        ),
+      ),
     );
   }
 }
