@@ -13,7 +13,7 @@ class Calcular {
     List<String> retorno = [];
     String arma="";
  
-  for(int i=0;i<a.length;i++){
+  for(int i=0;i<a.length;i++){ 
 
 
     //verificar se é um operador
