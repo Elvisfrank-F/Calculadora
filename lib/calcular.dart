@@ -9,16 +9,20 @@ class Calcular {
 
     //array de string que será usado para separar as variaveis
     
-    List<String> sepa = [" ", "+", "-","/","*", "^", "(", ")"];
+    List<String> sepa = [" ", "+", "-","/","*", "^", "(", ")", "%"];
     List<String> retorno = [];
     String arma="";
  
   for(int i=0;i<a.length;i++){ 
 
+    if( i == 0 && (a[i] == "-" || a[i] == "+")) {
+      arma += a[i];
+    }
+
 
     //verificar se é um operador
 
-    if(sepa.contains(a[i])) {
+    else if(sepa.contains(a[i])) {
       //adicionar o numero, caso i!= 0 pois pode ser um parenteses
         if(i!=0 && arma != "" && arma != " ") retorno.add(arma);
         arma = "";
@@ -43,7 +47,7 @@ class Calcular {
 
   num calcular(List<String> expressao){
 
-     List<String> sepa = [" ", "+", "-","/","*", "^", "(", ")"];
+     List<String> sepa = [" ", "+", "-","/","*", "^", "(", ")", "%"];
 
      List <bool> parens = [];
      bool paren = false;
@@ -110,6 +114,33 @@ class Calcular {
 
      i=0;
 
+     //porcentagem
+
+
+     while(i<expressao.length){
+      if(expressao[i] == "%") {
+       
+       num x = double.parse(expressao[i-1]);
+      
+ 
+       num sum = x/100;
+
+      
+       expressao.removeAt(i);
+       expressao[i-1] = sum.toString();
+       i=0;
+      }
+      
+      else {
+        i++;
+      }
+     }
+
+
+
+     //potenciação
+
+
      while(i<expressao.length){
       if(expressao[i] == "^") {
        
@@ -131,7 +162,7 @@ class Calcular {
       }
      }
 
-     //multiplicação e divisao
+     //multiplicação e divisao e porcentagem
 
     i =0;
 
@@ -141,8 +172,12 @@ class Calcular {
        num x = num.parse(expressao[i-1]);
        num y = num.parse(expressao[i+1]);
 
-       num sum = (expressao[i] == "*")? (x*y) : (x/y);
+       num sum=0;
+
+       if(expressao[i] == "*")  sum = x*y;
        
+       if(expressao[i] == "/")  sum = x/y;
+             
        //substitui pelo resuldo
        expressao.removeAt(i+1);
        expressao.removeAt(i);
@@ -160,6 +195,7 @@ class Calcular {
    while(i<expressao.length){
 
    if(expressao[i] == "+" || expressao[i] == "-"){
+
 
     num x = num.parse(expressao[i-1]);
     num y = num.parse(expressao[i+1]);

@@ -19,23 +19,43 @@ class _HomePageState extends State<HomePage> {
   bool paren = false;
   bool numer = false;
   num result=0;
+  bool porcentagem = false; //analizar se op orcetagem foi clicado para colocar o vezes caso nao seja colocado
 
   List <bool> parens =[];
 
   TextEditingController _controller = TextEditingController();
 
-  void digitar(String a){
+  void digitar(String a) {
+  setState(() {
+    paren = false;
+    resulto = false;
+    numer = parens.isEmpty ? true : false;
 
-    setState(() {
-      paren = false;
-      resulto = false;
-      numer =  parens.isEmpty? true: false;
-      expres += a;
-      _controller.text = expres;
-      pos=expres.length;
-    });
+    if(expres.length >0) {
 
+    if(expres[expres.length-1] == "%"){
+      a = "*" + a;
+    }
   }
+
+    if (expres.length > 2 && pos <= expres.length) {
+      expres = expres.substring(0, pos) + a + expres.substring(pos);
+      pos = pos + 1;
+    } else {
+      expres += a;
+      pos = expres.length;
+    }
+
+    // Primeiro atualiza o texto
+    _controller.text = expres;
+
+    // Depois atualiza o cursor (e só se o offset for válido)
+    if (pos <= expres.length) {
+      _controller.selection = TextSelection.collapsed(offset: pos);
+    }
+  });
+}
+
 
   void digitar_Paren(String a){
     
@@ -79,20 +99,53 @@ class _HomePageState extends State<HomePage> {
 
   void digitarOper(String a){
 
-    List<String> oper = ["*","/","^","+","-"];
+    List<String> oper = ["*","/","^","+","-", "%"];
+
+    if(expres.length-1>=0){
 
     if(oper.contains(expres[expres.length-1]) || expres[expres.length-1] == '('){
       a='';
     }
-  
-     setState(() {
-       paren = true;
-      resulto = false;
-      expres += a;
-      _controller.text = expres;
-      pos=expres.length;
+    }
 
-    });
+    if(expres.length == 0 && (a != "-" && a != "+")) {
+      a='';
+    }
+
+    if(a == "%") {
+      porcentagem = true;
+    }
+    else {
+      porcentagem = false;
+    }
+  
+    setState(() {
+    paren = false;
+    resulto = false;
+    numer = parens.isEmpty ? true : false;
+
+if(pos-1>=0 && pos < expres.length) {
+    if(oper.contains(expres[pos-1])  || oper.contains(expres[pos])){
+      a="";
+    }
+}
+
+    if (expres.length > 2 && pos <= expres.length) {
+      expres = expres.substring(0, pos) + a + expres.substring(pos);
+      pos = pos + 1;
+    } else {
+      expres += a;
+      pos = expres.length;
+    }
+
+    // Primeiro atualiza o texto
+    _controller.text = expres;
+
+    // Depois atualiza o cursor (e só se o offset for válido)
+    if (pos <= expres.length) {
+      _controller.selection = TextSelection.collapsed(offset: pos);
+    }
+  });
 
   }
 
@@ -191,7 +244,9 @@ void resultCont(){
          Row(
           mainAxisAlignment: MainAxisAlignment.end,
            children: [
-             Icon(Icons.backspace),
+            
+             GestureDetector(child: Icon(Icons.backspace), onTap: _apagar),
+             SizedBox(width: 15,),
            ],
          ) ,
          SizedBox(height: 10,),
@@ -332,7 +387,7 @@ void resultCont(){
 
               SizedBox(width: dist),
 
-              ButtonCustom(texto: '=', Size: 20, corBack: Colors.green,onPressed: (){
+              ButtonCustom(texto: '=', vertical: 10, Size: 30, corBack: Colors.green,onPressed: (){
                 setState(() {
                   _iniciarParen();
                   result = c.calcular(c.superSplit(expres));
