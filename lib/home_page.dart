@@ -174,6 +174,16 @@ void resultCont(){
                     decoration: InputDecoration(
                       border: InputBorder.none,
                     ),
+
+                     onTap: (){
+
+              setState(() {
+               pos =  _controller.selection.baseOffset;
+            print("posi: $pos");
+              });
+            
+            },
+            
                   ),
                 )
               ,
@@ -218,24 +228,16 @@ void resultCont(){
 
               SizedBox(width: dist),
             
-              ButtonCustom(texto: '^', corBack: const Color.fromARGB(255, 97, 88, 88), onPressed: (){ digitarOper('^');}),
+              ButtonCustom(texto: '^', Size: 30, vertical: 15, corBack: const Color.fromARGB(255, 97, 88, 88), onPressed: (){ digitarOper('^');}),
 
               SizedBox(width: dist),
 
-              ButtonCustom(texto: '÷',corBack: const Color.fromARGB(255, 97, 88, 88), onPressed: (){ digitarOper('/');}),
+              ButtonCustom(texto: '%', Size: 30, horizontal: 25, vertical: 15,corBack: const Color.fromARGB(255, 97, 88, 88), onPressed: (){ digitarOper('%');}),
 
               SizedBox(width: dist),
 
-              ElevatedButton(onPressed: _apagar,
-               child: Icon(Icons.backspace), style: ElevatedButton.styleFrom(
-    backgroundColor: const Color.fromARGB(255, 97, 88, 88),       // Cor de fundo
-    foregroundColor: Colors.white,            // Cor do texto
-    elevation: 8,                              // Sombra
-    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 24),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(100), // Cantos arredondados
-    ),
-  )),
+              
+              ButtonCustom(texto: '÷', Size: 30, horizontal: 25, vertical: 15,corBack: const Color.fromARGB(255, 97, 88, 88), onPressed: (){ digitarOper('/');})
             ],
           ),
 
@@ -258,7 +260,7 @@ void resultCont(){
 
               SizedBox(width: dist),
 
-              ButtonCustom(texto: 'x', corBack: const Color.fromARGB(255, 66, 63, 63), onPressed: (){ digitarOper('*');}),
+              ButtonCustom(texto: 'x', Size: 30, horizontal: 25, vertical: 15,corBack: const Color.fromARGB(255, 97, 88, 88), onPressed: (){ digitarOper('*');}),
             ],
           )),
           Padding(
@@ -279,7 +281,7 @@ void resultCont(){
 
               SizedBox(width: dist),
                
-              ButtonCustom(texto: '-', corBack: const Color.fromARGB(255, 66, 63, 63), onPressed: (){ digitarOper('-');}),
+              ButtonCustom(texto: '-', Size: 40, horizontal: 25, vertical: 8,corBack: const Color.fromARGB(255, 97, 88, 88), onPressed: (){ digitarOper('-');}),
 
             ],
           )),
@@ -300,7 +302,7 @@ void resultCont(){
               ButtonCustom(texto: '3', onPressed: (){ digitar('3');}),
               SizedBox(width: dist),
 
-              ButtonCustom(texto: '+', corBack: const Color.fromARGB(255, 66, 63, 63), onPressed: (){ digitarOper('+');}),
+              ButtonCustom(texto: '+', Size: 30, horizontal: 25, vertical: 15,corBack: const Color.fromARGB(255, 97, 88, 88), onPressed: (){ digitarOper('+');}),
 
             ],
           )),

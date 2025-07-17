@@ -5,6 +5,8 @@ class ButtonCustom extends StatefulWidget {
   final VoidCallback onPressed;
   final int? Size;
   final Color? corBack, corText;
+  final bool? cond;
+  final double? horizontal, vertical;
 
   const ButtonCustom({
     super.key,
@@ -13,6 +15,9 @@ class ButtonCustom extends StatefulWidget {
     this.Size,
     this.corBack,
     this.corText,
+    this.cond,
+    this.horizontal,
+    this.vertical
   });
 
   @override
@@ -56,7 +61,7 @@ class _ButtonCustomState extends State<ButtonCustom>
                   widget.corBack ?? const Color.fromARGB(255, 56, 42, 42),
               foregroundColor: widget.corText ?? Colors.white,
               elevation: 8,
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 24),
+              padding:  EdgeInsets.symmetric(horizontal: widget.horizontal ?? 30, vertical: widget.vertical ?? 24),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(100),
               ),
