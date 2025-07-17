@@ -162,14 +162,37 @@ void resultCont(){
         child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+
+          
+            SizedBox(height: 40,),
+                Expanded(
+                  child: TextField(
+                    controller: _controller,
+                    textAlign: TextAlign.right,
+                    //textDirection: TextDirection.rtl,
+                    style: TextStyle(fontSize: 40),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                    ),
+                  ),
+                )
+              ,
+
+         Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+           children: [
+             Icon(Icons.backspace),
+           ],
+         ) ,
+         SizedBox(height: 10,),
         Container(
           
           color: Colors.grey[800],
           width: MediaQuery.of(context).size.width,
           alignment: Alignment.centerRight,
           child: SizedBox(
-            width: 10,
-            height: 10,
+            width: 1,
+            height: 1,
           
           )
 
