@@ -158,7 +158,7 @@ void resultCont(){
   Widget build(BuildContext context) {
     return Scaffold(
 
-      body: Card (
+      body: SafeArea (
         child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -183,6 +183,8 @@ void resultCont(){
             ),
 
             textAlign: TextAlign.left,
+            
+
 
           )),
 
@@ -330,7 +332,7 @@ void resultCont(){
             ],
           )),
 
-          SizedBox(height: 100),
+          //SizedBox(height: 100),
         ],
 
         
