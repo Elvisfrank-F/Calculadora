@@ -162,31 +162,19 @@ void resultCont(){
         child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-
         Container(
-
+          
+          color: Colors.grey[800],
           width: MediaQuery.of(context).size.width,
           alignment: Alignment.centerRight,
-          child: TextField(
-            controller: _controller,
-
-            onTap: (){
-
-              setState(() {
-               pos =  _controller.selection.baseOffset;
-            print("posi: $pos");
-              });
-            
-            },
-            decoration: InputDecoration(
-              //border:OutlineInputBorder(),
-            ),
-
-            textAlign: TextAlign.left,
-            
+          child: SizedBox(
+            width: 10,
+            height: 10,
+          
+          )
 
 
-          )),
+          ),
 
        Container(
       //  color: Colors.grey,
